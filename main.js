@@ -1,4 +1,5 @@
 import { drawO, drawX, drawRect } from './functions.js';
+import { game_type } from './buttonBar.js';
 
 const canvas = document.getElementById('cnv');
 var ctx = canvas.getContext('2d');
@@ -8,6 +9,12 @@ var field = [
     '', '', '', 
     '', '', '', 
     '', '', ''
+];
+
+var field_for_memory = [
+    0, 0, 0, 
+    0, 0, 0, 
+    0, 0, 0
 ];
 
 function setPixel(event) {
@@ -50,7 +57,15 @@ function tack(mouse_x, mouse_y) {
                 if (mouse_x > data[0] && mouse_x < data[0] + data[2] && mouse_y > data[1] && mouse_y < data[1] + data[3]) {
                     field[x * 3 + y] = turn;
                     turn = turn == 'X' ? 'O' : 'X';
-
+                    for (var i = 0; i < 9; i++) {
+                        if (field_for_memory[i] != 0) {
+                            field_for_memory[i] --;
+                        } 
+                        if (field_for_memory[i] == 0 && game_type == 'Память') {
+                            field[i] = '';
+                        }
+                    }
+                    field_for_memory[x * 3 + y] = 6;
                 }
             }
         }

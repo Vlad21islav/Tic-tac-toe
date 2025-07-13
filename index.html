@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="ru">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -6,9 +6,13 @@
         <title>Tic-tac-toe</title>
     </head>
 
-    <body>
+    <link href="style.css" rel="stylesheet" />
+    <script type="module" src="main.js"></script>
+    <script type = "module" src="buttonBar.js"></script>
+    <body oncontextmenu="return false;">
         <canvas id="cnv"></canvas>
-        <script type="module" src="main.js"></script>
-        <link rel="stylesheet" href="style.css">
+        <p id="buttons">
+            <button class="button" onclick="buttonPress()">≡</button>
+        </p>
     </body>
 </html>
