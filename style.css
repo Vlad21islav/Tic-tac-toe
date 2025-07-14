@@ -22,3 +22,7 @@ canvas {
     font-size: 3rem;
     line-height: 1.1;
 }
+
+p {
+    margin: 0px;
+}
