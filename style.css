@@ -23,6 +23,11 @@ canvas {
     line-height: 1.1;
 }
 
+.reload {
+    left: 8;
+    right: auto;
+}
+
 p {
     margin: 0px;
 }

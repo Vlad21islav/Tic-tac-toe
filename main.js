@@ -1,4 +1,4 @@
-import { drawO, drawX, drawRect } from './functions.js';
+import { drawO, drawX, drawRect, checkLine } from './functions.js';
 import { game_type } from './buttonBar.js';
 
 var previouce_game_type = game_type
@@ -33,6 +33,7 @@ function tack(mouse_x, mouse_y) {
         field_for_memory = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         field = ['', '', '', '', '', '', '', '', ''];
         previouce_game_type = game_type;
+        turn = 'X';
     }
     var width = window.innerWidth * window.devicePixelRatio;
     var height = window.innerHeight * window.devicePixelRatio;
@@ -48,9 +49,13 @@ function tack(mouse_x, mouse_y) {
             if (width > height) {
                 field_width = field_height;
                 var data = [y * field_width / 3 + (max - min) / 2, x * field_height / 3, field_width / 3, field_height / 3];
+                var xOffset = (max - min) / 2;
+                var yOffset = 0;
             } else {
                 field_height = field_width;
                 var data = [y * field_width / 3, x * field_height / 3 + (max - min) / 2, field_width / 3, field_height / 3];
+                var xOffset = 0;
+                var yOffset = (max - min) / 2;
             }
             drawRect(data[0], data[1], data[2], data[3], "rgb(29, 32, 37)", 3, "white");
 
@@ -80,6 +85,7 @@ function tack(mouse_x, mouse_y) {
             }
         }
     }
+    checkLine(field, Math.min(canvas.width, canvas.height) / 3, xOffset, yOffset);
 }
 
 setInterval(tack, 10);
