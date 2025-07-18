@@ -6,6 +6,7 @@ let buttons = [
 let text = '';
 export var game_type = 'Классика';
 export var reload = false;
+var windowWidth = window.innerWidth;
 
 window.buttonPress = function() {
     if (buttonBarIsOpen) {
@@ -13,12 +14,20 @@ window.buttonPress = function() {
     } else {
         buttonBarIsOpen = true;
     }
+    updateButtons();
 }
 
 function tack() {
+    if (window.innerWidth != windowWidth) {
+        windowWidth = window.innerWidth;
+        updateButtons();
+    }
+}
+
+function updateButtons() {
     const button = document.getElementById('buttons')
     button.innerHTML = '';
-    if (buttonBarIsOpen) {
+    if (!buttonBarIsOpen) {
         button.innerHTML = `
         <button class="button" onclick="buttonPress()">≡</button>
         `
