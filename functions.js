@@ -84,10 +84,13 @@ export function drawRect(x, y, width, height, color='black', line_width=1, fill_
 }
 
 export function checkLine(field, cellSize, xOffset, yOffset) {
+    let somewone_won = false;
+
     // проверяем горизонтальные линии
     for (let i = 0; i < 3; i++) {
         if (field[i * 3] === field[i * 3 + 1] && field[i * 3] === field[i * 3 + 2] && field[i * 3] !== "") {
         drawLine(i * 3, i * 3 + 1, i * 3 + 2, cellSize, xOffset, yOffset);
+        somewone_won = true;
         }
     }
 
@@ -95,19 +98,24 @@ export function checkLine(field, cellSize, xOffset, yOffset) {
     for (let i = 0; i < 3; i++) {
         if (field[i] === field[i + 3] && field[i] === field[i + 6] && field[i] !== "") {
         drawLine(i, i + 3, i + 6, cellSize, xOffset, yOffset);
+        somewone_won = true;
         }
     }
 
     // проверяем диагональные линии
     if (field[0] === field[4] && field[0] === field[8] && field[0] !== "") {
         drawLine(0, 4, 8, cellSize, xOffset, yOffset);
+        somewone_won = true;
     }
     if (field[2] === field[4] && field[2] === field[6] && field[2] !== "") {
         drawLine(2, 4, 6, cellSize, xOffset, yOffset);
+        somewone_won = true;
     }
+
+    return somewone_won;
 }
 
-function drawLine(cell1, cell2, cell3, cellSize, xOffset, yOffset) {
+function drawLine(cell1, cell2, cell3, cellSize, xOffset, yOffset, somewone_won) {
     const x1 = cell1 % 3 * cellSize + cellSize / 2 + xOffset;
     const y1 = Math.floor(cell1 / 3) * cellSize + cellSize / 2 + yOffset;
     const x2 = cell2 % 3 * cellSize + cellSize / 2 + xOffset;
@@ -129,4 +137,8 @@ function drawLine(cell1, cell2, cell3, cellSize, xOffset, yOffset) {
     ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
     ctx.shadowBlur = 10;
     ctx.stroke();
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.shadowColor = 'rgba(0, 0, 0, 0)';
+    ctx.shadowBlur = 0;
 }

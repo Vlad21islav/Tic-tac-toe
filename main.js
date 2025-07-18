@@ -1,7 +1,8 @@
 import { drawO, drawX, drawRect, checkLine } from './functions.js';
-import { game_type } from './buttonBar.js';
+import { game_type, reload, stopReload } from './buttonBar.js';
 
 var previouce_game_type = game_type
+export var somewone_won = false;
 
 const canvas = document.getElementById('cnv');
 var ctx = canvas.getContext('2d');
@@ -20,6 +21,7 @@ var field_for_memory = [
 ];
 
 function setPixel(event) {
+    if (somewone_won) return;
     const x = event.clientX * window.devicePixelRatio;
     const y = event.clientY * window.devicePixelRatio;
 
@@ -29,11 +31,13 @@ canvas.addEventListener('mousedown', setPixel);
 
 
 function tack(mouse_x, mouse_y) {
-    if (previouce_game_type != game_type) {
+    if (previouce_game_type != game_type || reload) {
         field_for_memory = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         field = ['', '', '', '', '', '', '', '', ''];
         previouce_game_type = game_type;
         turn = 'X';
+        somewone_won = false;
+        stopReload();
     }
     var width = window.innerWidth * window.devicePixelRatio;
     var height = window.innerHeight * window.devicePixelRatio;
@@ -85,7 +89,7 @@ function tack(mouse_x, mouse_y) {
             }
         }
     }
-    checkLine(field, Math.min(canvas.width, canvas.height) / 3, xOffset, yOffset);
+    somewone_won = checkLine(field, Math.min(canvas.width, canvas.height) / 3, xOffset, yOffset);
 }
 
 setInterval(tack, 10);
