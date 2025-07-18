@@ -4,7 +4,7 @@ var ctx = canvas.getContext('2d');
 
 export function drawPoligon(angles, color='black', line_width=1, fill_color='') {
     ctx.strokeStyle = color;
-    ctx.lineWidth = line_width;
+    ctx.shadowBlur = 10;
     ctx.beginPath();
     ctx.moveTo(angles[0].x, angles[0].y);
     for (var i = 1; i < angles.length; i++) {
@@ -58,12 +58,20 @@ export function drawX(x, y, width, height, color='black', line_width=1, fill_col
         {x: x + width / 6 * 2, y: y + height / 6 * 3},
         {x: x + 0, y: y + height / 6}
     ];
+    ctx.shadowColor = 'rgba(0, 0, 0, 1)';
+    ctx.shadowBlur = 50;
     drawPoligon(vertices, color, line_width, fill_color);
+    ctx.shadowColor = 'rgba(0, 0, 0, 0)';
+    ctx.shadowBlur = 0;
 }
 
 
 export function drawO(x, y, width, height, color='black', line_width=1, fill_color='') {
+    ctx.shadowColor = 'rgba(0, 0, 0, 1)';
+    ctx.shadowBlur = 50;
     drawCircle(x + width / 2, y + height / 2, (width + height) / 4, color, width / 10, fill_color);
+    ctx.shadowColor = 'rgba(0, 0, 0, 0)';
+    ctx.shadowBlur = 0;
 }
 
 
