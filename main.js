@@ -2,7 +2,7 @@ import { drawO, drawX, drawRect, checkLine } from './functions.js';
 import { game_type, reload, stopReload } from './buttonBar.js';
 
 var previouce_game_type = game_type
-export var somewone_won = false;
+var somewone_won = false;
 
 const canvas = document.getElementById('cnv');
 var ctx = canvas.getContext('2d');
