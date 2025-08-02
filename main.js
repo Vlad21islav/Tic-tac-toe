@@ -1,5 +1,5 @@
 import { drawO, drawX, drawRect, checkLine } from './functions.js';
-import { game_type, reload, stopReload } from './buttonBar.js';
+import { game_type, reload, stopReload, score } from './buttonBar.js';
 
 var previouce_game_type = game_type
 var somewone_won = false;
@@ -89,7 +89,18 @@ function tack(mouse_x, mouse_y) {
             }
         }
     }
-    somewone_won = checkLine(field, Math.min(canvas.width, canvas.height) / 3, xOffset, yOffset);
+    let who_won = checkLine(field, Math.min(canvas.width, canvas.height) / 3, xOffset, yOffset);
+    if (who_won != null && !somewone_won) {
+        
+        somewone_won = true;
+        if (who_won == 'X') {
+            score[0] ++;
+        } else if (who_won == 'O') {
+            score[1] ++;
+        }
+    localStorage.setItem('score', score.join(' : '));
+    console.log(score);
+    }
 }
 
 setInterval(tack, 10);

@@ -1,10 +1,20 @@
 let buttonBarIsOpen = false;
 let buttons = [
     ['≡', 'buttonPress()'],
-    ['Сейчас тип: ', "buttonFunctions('type'), buttonPress()"]
+    ['Сейчас тип: ', "buttonFunctions('type'), buttonPress()"],
+    ['Сбросить счёт', "buttonFunctions('clear score'), buttonPress()"],
+    ['Счёт: ', "buttonPress()"],
 ];
 let text = '';
+let cookies = [localStorage.getItem('game_type'), localStorage.getItem('score')];
 export var game_type = 'Классика';
+if (cookies[0] != undefined && cookies[0] != '') {
+    game_type = cookies[0];
+}
+export var score = [0, 0];
+if (cookies[1] != undefined && cookies[1] != '') {
+    score = cookies[1].split(' : ');
+}
 export var reload = false;
 var windowWidth = window.innerWidth;
 
@@ -36,6 +46,8 @@ function updateButtons() {
             text = buttons[i][0];
             if (i == 1) {
                 text += game_type;
+            } else if (i == 3) {
+                text += score.join(' : ');
             }
             button.innerHTML += `
             <button style="top: ${60 * i + 8}; width: ${Math.min(530, (window.innerWidth - 100))};text-align: right;" class="button" onclick="${buttons[i][1]}">${text}</button>
@@ -52,6 +64,11 @@ window.buttonFunctions = function(func) {
             } else {
                 game_type = 'Классика';
             }
+            localStorage.setItem('game_type', game_type);
+            break;
+        case 'clear score':
+            score = [0, 0];
+            localStorage.setItem('score', score.join(' : '));
             break;
     }
 }
