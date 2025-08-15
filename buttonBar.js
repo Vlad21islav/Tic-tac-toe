@@ -3,7 +3,6 @@ let buttons = [
     ['≡', 'buttonPress()'],
     ['Сейчас тип: ', "buttonFunctions('type'), buttonPress()"],
     ['Сбросить счёт', "buttonFunctions('clear score'), buttonPress()"],
-    ['Счёт: ', "buttonPress()"],
 ];
 let text = '';
 let cookies = [localStorage.getItem('game_type'), localStorage.getItem('score')];
@@ -16,7 +15,7 @@ if (cookies[1] != undefined && cookies[1] != '') {
     score = cookies[1].split(' : ');
 }
 export var reload = false;
-var windowWidth = window.innerWidth;
+var windowWidth;
 
 window.buttonPress = function() {
     if (buttonBarIsOpen) {
@@ -34,7 +33,7 @@ function tack() {
     }
 }
 
-function updateButtons() {
+export function updateButtons() {
     const button = document.getElementById('buttons')
     button.innerHTML = '';
     if (!buttonBarIsOpen) {
@@ -46,14 +45,16 @@ function updateButtons() {
             text = buttons[i][0];
             if (i == 1) {
                 text += game_type;
-            } else if (i == 3) {
-                text += score.join(' : ');
             }
             button.innerHTML += `
             <button style="top: ${60 * i + 8}; width: ${Math.min(530, (window.innerWidth - 100))};text-align: right;" class="button" onclick="${buttons[i][1]}">${text}</button>
             `
         }
     }
+    const score_button = document.getElementById('score')
+    score_button.innerHTML = `
+    <button class="button score">${score[0]} : ${score[1]}</button>
+    `
 }
 
 window.buttonFunctions = function(func) {
