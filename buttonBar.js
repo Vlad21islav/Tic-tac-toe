@@ -41,14 +41,18 @@ export function updateButtons() {
         <button class="button" onclick="buttonPress()">≡</button>
         `
     } else {
+        let top = 8; // начальная координата y
         for (let i = 0; i < buttons.length; i ++) {
             text = buttons[i][0];
             if (i == 1) {
                 text += game_type;
             }
-            button.innerHTML += `
-            <button style="top: ${60 * i + 8}; width: ${Math.min(530, (window.innerWidth - 100))};text-align: right;" class="button" onclick="${buttons[i][1]}">${text}</button>
+            const buttonHtml = `
+            <button style="top: ${top}px; width: ${Math.min(530, (window.innerWidth - 100))};text-align: right;" class="button" onclick="${buttons[i][1]}">${text}</button>
             `
+            button.innerHTML += buttonHtml;
+            const buttonElement = button.querySelector(`button:nth-child(${i + 1})`);
+            top += buttonElement.offsetHeight + 8; // увеличиваем координату y на высоту кнопки
         }
     }
     const score_button = document.getElementById('score')
