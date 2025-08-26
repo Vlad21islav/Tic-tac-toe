@@ -41,7 +41,7 @@ export function updateButtons() {
         <button class="button" onclick="buttonPress()">≡</button>
         `
     } else {
-        let top = 8; // начальная координата y
+        let top = 8;
         for (let i = 0; i < buttons.length; i ++) {
             text = buttons[i][0];
             if (i == 1) {
@@ -52,7 +52,7 @@ export function updateButtons() {
             `
             button.innerHTML += buttonHtml;
             const buttonElement = button.querySelector(`button:nth-child(${i + 1})`);
-            top += buttonElement.offsetHeight + 8; // увеличиваем координату y на высоту кнопки
+            top += buttonElement.offsetHeight + 8;
         }
     }
     const score_button = document.getElementById('score')
