@@ -52,7 +52,7 @@ export function updateButtons() {
             `
             button.innerHTML += buttonHtml;
             const buttonElement = button.querySelector(`button:nth-child(${i + 1})`);
-            top += buttonElement.offsetHeight + 8;
+            top += buttonElement.offsetHeight + 4;
         }
     }
     const score_button = document.getElementById('score')
@@ -88,4 +88,3 @@ export function stopReload() {
 }
 
 setInterval(tack, 10);
-
